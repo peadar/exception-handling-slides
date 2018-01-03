@@ -1,0 +1,29 @@
+<pre style="font-size:40%;background-color:#1f1f1f;overflow-y:auto;max-height:50em;color:#dcdcdc">
+<span class="lowlight">
+.LFE1440:
+	.section	.gcc_except_table,&quot;a&quot;,@progbits
+</span><span style="color:magenta">
+.LLSDA1440:
+</span><span class="lowlight">
+	.byte	0xff /* No actions needed. */
+	.byte	0xff /* No types needed */
+	.byte	0x1  /* How things are encoded. 1 = ULEB128 */
+	.uleb128 .LLSDACSE1440-.LLSDACSB1440
+.LLSDACSB1440:
+<span style="color:red">	.uleb128 .LEHB0-.LFB1440 /* Start */
+	.uleb128 .LEHE0-.LEHB0   /* Length */
+</span>	.uleb128 0 /* Landing pad */
+	.uleb128 0 /* Action */
+<span style="color:green">	.uleb128 .LEHB1-.LFB1440 /* Start */
+	.uleb128 .LEHE1-.LEHB1 /* Length */
+</span><span style="color:orange">	.uleb128 .L12-.LFB1440 /* Landing Pad */
+</span>	.uleb128 0 /* Action */
+<span style="color:cyan">	.uleb128 .LEHB2-.LFB1440 /* Start */
+	.uleb128 .LEHE2-.LEHB2 /* Length */
+</span><span style="color:yellow">	.uleb128 .L13-.LFB1440 /* Landing Pad */
+</span>	.uleb128 0 /* Action */
+	.uleb128 .LEHB3-.LFB1440 /* Start */
+	.uleb128 .LEHE3-.LEHB3 /* Length */
+	.uleb128 0 /* Landing Pad */
+	.uleb128 0 /* Action */
+</pre>

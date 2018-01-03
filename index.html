@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C++ Exception Handling - The Gory Details</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="reveal.js/css/reveal.css">
+        <link rel="stylesheet" href="reveal.js/css/theme/black.css">
+        <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+        <link rel="stylesheet" href="local.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+                    <h2>C++ Exception Handling</h2>
+                    <p>The gory details of an implementation</p>
+                    <br>
+                    <div style="font-size: 80%">
+                        <i>
+                            <br> Peter Edwards, Arista Networks.
+                            <br><a href="mailto:peadar@arista.com">peadar@arista.com</a>
+                        <br><a href= "http://isainmdom.com/~peadar/eximpl">http://isainmdom.com/~peadar/eximpl</a>
+                        </i>
+
+                    </div>
+                    <aside class="notes">
+                        <ul>
+                            <li> Arista Are Hiring </li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>C++ Exceptions</h3>
+                    <div class="left-pane">
+                        <p> <a href="src/foo.cc">Basic example:</a></p>
+                        <pre> <code class="c++" data-external="src/foo.ecc"> </code> </pre>
+                    </div>
+
+                    <div class="right-pane">
+                        <p class="fragment"> Why?
+                        <ul>
+                            <li class="fragment">"Happy path" code kept together</li>
+                            <li class="fragment">Error-handling is separated</li>
+                            <li class="fragment">Cleanup with RAII happens implicitly</li>
+                            <li class="fragment"><b>Should</b> be cheap/free if exceptions are not thrown</li>
+                        </ul>
+                        </p>
+                        <p class="fragment"> How?
+                        <ul>
+                            <li class="fragment"><code>setjmp/longjmp</code>, as used by GCC where there's no other option</li>
+                            <li class="fragment">DWARF based, as used on supporting platforms, including Linux on x86 and amd64</li>
+                        </ul>
+                        </p>
+                    </div>
+
+                </section>
+
+                <section>
+                    <h3>Implementing Exceptions with <code>setjmp/longjmp</code></h3>
+                    <section>
+                        <div class="left-pane">
+                            <pre> <code class="c" data-external="src/sjljbasic.ec"> </code> </pre>
+                        </div>
+                        <div class="right-pane">
+                            <p> Quick overview of semantics </p>
+                            <ul>
+                                <li class="fragment">call setjmp once, it can return twice</li>
+                                <li class="fragment">first returns 0</li>
+                                <li class="fragment">... but stores machine state (register set) in the <code>jmp_buf</code></li>
+                                <li class="fragment"><code>longjmp</code> causes a non-local transfer of control - restores registers from <code>jmp_buf</code>, including stack pointer and program counter</li>
+                                <li class="fragment">Organizes to make it look like <code>setjmp</code> returns a second time, but with a new return value</li>
+                                <li class="fragment">Any stack storage used is recovered, but that's it - no destructors called</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section data-transition="slide-in fade-out">
+                        <br>
+                        <div class="left-pane">
+                            <pre> <code class="c" data-external="src/sjljeg.ec"> </code> </pre>
+                        </div>
+
+                        <div class="right-pane">
+                            <p>Improvement: Maintain a runtime-stack of clean-ups and catch blocks</p>
+                            <ul>
+                                <li class="fragment"><code>try</code> sets up an exception handling "frame" with a <code>jmp_buf</code> embedded in it</li>
+                                <li class="fragment">Functions can push cleanup handlers onto the "current" frame</li>
+                                <li class="fragment">throwing an exception runs cleanups, and eventually does <code>longjmp</code></li>
+                            </ul>
+
+                        </div>
+                    </section>
+
+                    <section data-transition="fade">
+                        <br>
+                        <div class="left-pane">
+                            <pre> <code class="c" data-external="src/sjljeg.ec"> </code> </pre>
+                        </div>
+                        <div class="right-pane">
+                            <pre> <code class="c" data-external="src/sjlj.eh"> </code> </pre>
+                        </div>
+                    </section>
+
+                    <section data-transition="fade">
+                        <br>
+                        <div class="left-pane">
+                            <pre> <code class="c" data-external="src/sjljeg.ec"> </code> </pre>
+                        </div>
+                        <div class="right-pane">
+                            <pre> <code class="c" data-external="src/sjlj.ec"> </code> </pre>
+                        </div>
+                    </section>
+
+<!--
+    This was to show an actual compiler output with sjlj. It's not really necessary.
+                    <section data-transition="fade-in slide-out">
+                        <div class="left-pane">
+                            <pre> <code class="c++" data-external="src/foo.ecc"> </code></pre>
+                        </div>
+                        <div class="right-pane">
+                            <pre> <code class="x86asm" data-external="src/foo.freebsd4.es"> </code></pre>
+                        </div>
+                        <aside class="notes">
+                            <ul>
+                                <li> Look at the implementation of "h" briefly - not much to see, but it does call _get_eh_context, and eventually _sjthrow</li>
+                                <li> Look at "g" - it needs to call get_eh_context, and updates the content when each object is constructed.</li>
+                                <li> Look at "f" - before calling "g", it saves .L494" into the eh_context, which points to the code that handles the exception</li>
+                            </ul>
+                        </aside>
+                    </section>
+
+                    -->
+                    <section data-transition="fade-in slide-out">
+                        <div class="left-pane">
+                            <pre> <code class="c" data-external="src/sjljeg.ec"> </code> </pre>
+                        </div>
+                        <div class="right-pane">
+                            <p>What's wrong with it?</p>
+                            <ul>
+                                <li class="fragment">For any function, like <code>g</code>, we need to keep track of what we need to clean up</li>
+                                <li class="fragment">For any <code>catch</code> block, we need to call <code>setjmp</code>, to get a copy of the machine state, and store it somewhere</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <h3> Implementation: Table Based Approach </h3>
+                    <section>
+                        <div class="left-pane">
+                            <pre> <code class="c++" data-external="src/foo.ecc"> </code></pre>
+                        </div>
+                        <div class="right-pane">
+                            Within any function:
+                            <ul>
+                                <li class="fragment">At a specific point in the code of a function, the set of things we need to clean up is known at compile time.</li>
+                                <li class="fragment">If we're in a try block, we know where the code for the associated catch block(s) are</li>
+                                <li class="fragment">Therefore, we can store the info at compile time in a table, keyed by program counter</li>
+                                <li class="fragment">This is the same data that any one function would have recorded with our SJLJ approach</li>
+                                <li class="fragment">Pretty much 0 cost for the happy path</li>
+                                <li class="fragment">May be quite expensive for the sad path - we'll look at what's involved</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </section>
+                    <section>
+                        <div>
+                            <div class="left-pane">
+                                <p>"Landing pads" are the code generated by the compiler to cleanup or handle an exception </p>
+                                <p>"Actions" allow us to decide what particular C++ exceptions we can catch at this landing pad.</p>
+                            </div>
+
+                            <div class="right-pane">
+                                <img src="img/LSDA-C++.svg" style="border-width:0;background-color:#222222" ></img>
+                            </div>
+
+                    </section>
+                    <section>
+
+                        <div class="left-pane">
+                            text of <code>g</code> from <a href="src/foo.s">foo.s</a>
+                            <div data-external="src/foo-g-landingpads.html"> </div>
+                        </div>
+
+                        <div class="right-pane">
+                            source from <a href="src/foo.cc">foo.cc</a>
+                            <div data-external="src/foo-g-color.html"></div>
+                            "LSDA" table for <code>g</code> from <a href="src/foo.s">foo.s</a>
+                            <div data-external="src/foo-g-lsda.html"></div>
+                        </div>
+                    </section>
+                </section>
+
+
+                <section>
+                    <h3> Stack Unwinding</h3>
+                    <div class="right-pane">
+                        <div class="machine-stack">
+
+                            <table>
+                                <tr><td></td><td class="stackspace">&nbsp;</td></tr>
+                                <tr><td></td><td class="stackspace">&nbsp;</td></tr>
+                                <tr><td></td><td class="stackspace">&nbsp;</td></tr>
+                                <tr class="fragment" data-fragment-index="13"><td></td><td class="stackframe h">...</td></tr>
+                                <tr class="fragment" data-fragment-index="12"><td class="esp">ESP</td><td class="stackframe g">return-address back to g</td> </tr>
+                                <tr class="fragment" data-fragment-index="11"><td class="esp">ESP</td><td class="stackframe g">"there"</td></tr>
+                                <tr class="fragment" data-fragment-index="10"><td class="esp">ESP</td><td class="stackframe g">"here"</td></tr>
+                                <tr class="fragment" data-fragment-index="9"><td class="esp">ESP</td><td class="stackframe f">return address back to f</td></tr>
+                                <tr class="fragment" data-fragment-index="8"><td class="esp">ESP</td><td class="stackframe f">arguments to g</td></tr>
+                                <tr class="fragment" data-fragment-index="7"><td class="esp">ESP</td><td class="stackframe f">local variables in f</td></tr>
+                                <tr class="fragment" data-fragment-index="6"><td class="esp">ESP</td><td class="stackframe main">return address back to main</td></tr>
+                                <tr class="fragment" data-fragment-index="5"><td class="esp">ESP</td><td class="stackframe main">arguments to f</td></tr>
+                                <tr class="fragment" data-fragment-index="4"><td class="esp">ESP</td><td class="stackframe main">main's local variables</td></tr>
+                                <tr class="fragment" data-fragment-index="3"><td class="esp">ESP</td><td class="stackframe startup">return address back to C startup</td></tr>
+                                <tr class="fragment" data-fragment-index="2"><td class="esp">ESP</td><td class="stackframe startup">argc</td></tr>
+                                <tr class="fragment" data-fragment-index="1"><td class="esp">ESP</td><td class="stackframe startup">argv</td></tr>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="left-pane">
+                        <p> Our table-based approach only tells us what to do for the local function. How do we find out where we are in <code>g()</code> when <code>h()</code> throws an exception?</p>
+                        <pre><code data-external="src/foo.ecc" class="c"> </code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3> Stack Unwinding: with frame pointers </h3>
+
+                    <section>
+
+                        <div class="left-pane">
+                            <p class="fragment" data-fragment-index="0">Use a register to point to the current stack frame: the "frame pointer"</p>
+                            <p class="fragment" data-fragment-index="1">On function entry push frame pointer, copy stack pointer to frame pointer, so new frame pointer points to old frame pointer </p>
+                            <p class="fragment" data-fragment-index="2">i386: <code>ENTER</code> and <code>LEAVE</code> instructions; use <code>ebp</code> for FP.</p>
+                            <pre><code data-external="src/foo.ecc" class="c"> </code></pre>
+                        </div>
+
+                        <div class="right-pane">
+
+                            <div class="machine-stack">
+                                <table>
+                                    <tr class="fragment" data-fragment-index="19"><td class="ebp"></td><td class="esp"></td><td class="stackframe h">...</td></tr>
+                                    <tr class="fragment" data-fragment-index="18"><td class="ebp"></td><td class="esp">ESP</td><td class="stackframe g">return-address back to g</td> </tr>
+                                    <tr class="fragment" data-fragment-index="17"><td class="ebp"></td><td class="esp">ESP</td><td class="stackframe g">"there"</td></tr>
+                                    <tr class="fragment" data-fragment-index="16"><td class="ebp"></td><td class="esp">ESP</td><td class="stackframe g">"here"</td></tr>
+                                    <tr class="fragment frame-pointer" data-fragment-index="15"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe fp">old EBP</td></tr>
+                                    <tr class="fragment" data-fragment-index="14"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe f">return address back to f</td></tr>
+                                    <tr class="fragment" data-fragment-index="13"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe f">arguments to g</td></tr>
+                                    <tr class="fragment" data-fragment-index="12"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe f">local variables in f</td></tr>
+                                    <tr class="fragment frame-pointer" data-fragment-index="11"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe fp">old EBP</td></tr>
+                                    <tr class="fragment" data-fragment-index="10"><td class="ebp"></td><td class="esp">ESP</td><td class="stackframe main">return address back to main</td></tr>
+                                    <tr class="fragment" data-fragment-index="9"><td class="ebp"></td><td class="esp">ESP</td><td class="stackframe main">arguments to f</td></tr>
+                                    <tr class="fragment" data-fragment-index="8"><td class="ebp"></td><td class="esp">ESP</td><td class="stackframe main">main's local variables</td></tr>
+                                    <tr class="fragment frame-pointer" data-fragment-index="7"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe fp">old EBP</td></tr>
+                                    <tr class="fragment" data-fragment-index="6"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe startup">return address back to C startup</td></tr>
+                                    <tr class="fragment" data-fragment-index="5"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe startup">argc</td></tr>
+                                    <tr class="fragment" data-fragment-index="4"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe startup">argv</td></tr>
+                                    <tr class="fragment frame-pointer active-frame-pointer" data-fragment-index="3"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe startup">EBP somewhere down here</td></tr>
+                                </table>
+                            <div class="machine-stack">
+
+                        </div>
+
+                    </section>
+
+                    <section>
+                        <p><a href="src/foo32.es">Output</a> from modern 32-bit compiler for our <a href="src/foo.cc">sample</a><p>
+                            <pre><code data-external="src/foo32.es" class="x86asm"> </code></pre>
+                    </section>
+                </section>
+                <section>
+
+                    <h3> Stack Unwinding: with tables</h3>
+                    <section>
+
+                        <div class="left-pane">
+                            <pre><code data-external="src/foo.ecc" class="c"> </code></pre>
+                        </div>
+                        <div class="right-pane">
+                            <ul>
+                                <li class="fragment">As with SJLJ, we can build static tables, rather than doing work at runtime</li>
+                                <li class="fragment">Saves instructions, stack space, and a machine register</li>
+                                <li class="fragment"><code>.eh_frame</code> section in and ELF image contains our table</li>
+                                <li class="fragment">We have a table for each function, more or less</li>
+                                <li class="fragment">Each row of our table says how to calculate the content of a register back in the function that called us.</li>
+                                <li class="fragment">Includes two "special" registers/states
+                                    <ul>
+                                        <li class="fragment">Call Frame Address - Takes place of frame pointer; Generally the stack pointer for the previous frame </li>
+                                        <li class="fragment">Return Address Register (RAR) giving program counter in previous frame </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+
+                        <p>What our table looks like</p>
+                        <div class="left-pane">
+                            <div data-external="src/foo-g.html"> </div> 
+                        </div>
+
+                        <div class="right-pane">
+                            <p>Stack on entry to <code>g</code>:</p>
+                            <div class="machine-stack">
+                                <table>
+
+                                <tr>
+                                    <td></td>
+                                    <td class="stackframe g">Local stack space for <code>g</code></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>ESP-></td>
+                                    <td class="stackframe f">return address into <code>f</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        CFA->
+                                    </td>
+                                    <td class="stackframe f">arguments into  <code>g</code></td>
+                                </tr>
+                                </table>
+                            </div>
+                            <br>
+
+                            <table style="font-size:72%;">
+                                <tr class="fragment">
+                                    <th>Address</th>
+                                    <th>R0</th>
+                                    <th>R1</th>
+                                    <th>R2</th>
+                                    <th>R3(rbx)</th>
+                                    <th>...</th>
+                                    <th>CFA</th>
+                                    <th>RAR</th>
+                                </tr>
+
+                                <tr class="fragment">
+                                    <td class="changed"><code>g</code></td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>...</td>
+                                    <td class="changed">ESP+8</td>
+                                    <td class="changed">*(CFA-8)</td>
+                                </tr>
+
+                                <tr class="fragment">
+                                    <td><code>g+1</code></td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td class="changed">*(CFA -16) </td>
+                                    <td>...</td>
+                                    <td class="changed">ESP + 16</td>
+                                    <td>*(CFA - 8)</td>
+                                </tr>
+
+                                <tr class="fragment">
+                                    <td><code>g+5</code></td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>*(CFA -16) </td>
+                                    <td>...</td>
+                                    <td class="changed">ESP + 32</td>
+                                    <td>*(CFA - 8)</td>
+                                </tr>
+
+                                <tr class="fragment">
+                                    <td>...</td>
+                                </tr>
+
+                                <tr class="fragment">
+                                    <td><code>g+59</code></td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>*(CFA -16) </td>
+                                    <td>...</td>
+                                    <td class="changed">ESP + 16</td>
+                                    <td>*(CFA - 8)</td>
+                                </tr>
+
+                                <tr class="fragment">
+                                    <td><code>g+60</code></td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>Same</td>
+                                    <td>*(CFA -16) </td>
+                                    <td>...</td>
+                                    <td class="changed">ESP + 8</td>
+                                    <td>*(CFA - 8)</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </section>
+                    <section>
+                        Representing the table in our Executable
+                        <ul>
+                            <li class="fragment">Stored in <code>.eh_frame</code> section of ELF object</li>
+                            <li class="fragment"><code>.eh_frame</code> can have a <cite>Frame Description Entry</cite> (FDE) for each function in the object</li>
+                            <li class="fragment">A set of FDEs can share a <cite>Common Information Entry</cite> (CIE). This contains initial "state" for the FDEs, and some language specific data (like "personality routine")</li>
+                            <li class="fragment">FDE implements a simple "virtual machine". From initial state in CIE, execute instructions that can:
+                                <ul>
+                                    <li class="fragment">update the disposition of a register in the table</li>
+                                    <li class="fragment">update the disposition of the CFA</li>
+                                    <li class="fragment">advance the program counter</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <div class="left-pane">
+                            <div data-external="src/foo-g.html"> </div> 
+                        </div>
+                        <div class="right-pane">
+                            <p>Selected <a href="src/foo.dwarftables">output</a> from <br><cite><code>readelf --debug-dump=frames foo.o </code></cite></p>
+                            <pre> <code data-external="src/foo.dwarftables.g"> </code> </pre>
+                        </div>
+                    </section>
+
+                </section>
+
+                <section>
+                    <h3>Putting it all together</h3>
+
+                    <section>
+                        We now have enough information to handle an exception from <code>throw</code> to <code>catch</code>
+                            <ul>
+                                <li class="fragment">From the CPUs program counter, locate the ELF image that provides the code</li>
+                                <li class="fragment">Within this ELF image, find the .eh_frame section</li>
+                                <li class="fragment">Find the FDE covering the current CPU program counter in <code>.eh_frame</code></li>
+                                <li class="fragment">Initialize the caller's frame information from the CIE instructions</li>
+                                <li class="fragment">Execute the FDE's instructions until the virtual instruction pointer  reaches our CPU instruction pointer</li>
+                                <li class="fragment">This generates the state for the calling frame - including the program counter where control would have returned to it</li>
+                                <li class="fragment">Use this to find the LSDA information and handle our exception based on program counter for this frame</li>
+                                <li class="fragment">We can repeat until we've found a handler for the exception</li>
+                            </ul>
+                    </section>
+
+                    <section>
+                        <div class="left-pane">
+                            <div class="position:relative">
+                                <pre class="fragment current-visible" style="position:absolute;top:0;width:50%"> <code data-external="src/foo-h.es" class="c++"> </code> </pre>
+                                <pre class="fragment" style="position:absolute;top:0;width:50%"> <code data-external="src/__cxa_throw.ecc" class="c++"> </code> </pre>
+                            </div>
+                        </div>
+                        <div class="right-pane">
+                            <ul> 
+                                <br></br>
+                                <li class="fragment"><code>__cxa_throw</code> Takes 3 arguments
+                                    <ul>
+                                        <li>A pointer to the exception being thrown</li>
+                                        <li>The type of the thrown exception (std::type_info)</li>
+                                        <li>A pointer to the exception's destructor</li>
+                                    </ul>
+                                <li class="fragment">part of the C++ runtime, but stack unwinding and exception handling is required by other languages, too</li>
+                                <li class="fragment">Calls language-agnostic _Unwind_RaiseException, passing it the above in an opaque wrapper</li>
+                                <li class="fragment">Two-phase process</li>
+                                <li class="fragment">Search phase - find the frame where execution will resume</li>
+                                <li class="fragment">Cleanup phase - handle the exception, cleaning up any stack resources.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="left-pane">
+                            <pre> <code data-external="src/libgcc/unwind.inc" class="c++"> </code> </pre>
+                        </div>
+                        <div class="right-pane">
+                            <pre> <code data-external="src/eh_personality.ecc" class="c++"> </code> </pre>
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <h2>Questions?</h2>
+                    <ul style="font-size: 70%">
+                        <li>If you found this at all interesting, read Ian Lance Taylor's blogposts on <a href="https://www.airs.com/blog/archives/38">Linkers and Loaders </a></li>
+                        <li>I found <a href="https://monoinfinito.wordpress.com/series/exception-handling-in-c/"> this</a> series of posts by Nicolas Brailovsky</a> in the process of preparing my slides: It goes over very similar ground in a lot of detail if you want to get your hands dirty</li>
+                        <li>The <code>_Unwind*</code> interface was originally documented for Itanium <a href="https://itanium-cxx-abi.github.io/cxx-abi/abi-eh.html">here</a></li>
+                        <li>The <code>.eh_frame</code> format is an extension of what's specified by int the <a href=https://www.google.ie/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjAkIqOyuTYAhUNHGMKHW-QAMYQFggnMAA&url=http%3A%2F%2Fwww.dwarfstd.org%2Fdoc%2FDWARF4.pdf&usg=AOvVaw3DhnGtxLoAdE2J8xUm208i">DWARF </a></li>
+                        <li class="ref">Section 5.4 of <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/TR18015.pdf">Technical Report on C++ Performance</a> deals with the overhead of exceptions</li>
+                        <li class="ref">These slides are at <a href="http://isainmdom.com/~peadar/eximpl">http://isainmdom.com/~peadar/eximpl</a></li>
+                    </ul>
+                </section>
+                        </div> <!-- slides -->
+            </div> <!-- reveal -->
+
+            <script src="reveal.js/lib/js/head.min.js"></script>
+            <script src="reveal.js/js/reveal.js"></script>
+            <script>
+
+Reveal.initialize({
+    width: '100%',
+    height: '100%',
+    margin: 0,
+    border: 0,
+    dependencies: [
+
+
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'external/external/external.js', condition: function() { return !!document.querySelector( '[data-external]' ); } },
+    { src: 'reveal.js/plugin/notes/notes.js', async: true },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+
+
+    ]});
+
+Reveal.addEventListener('fragmentshown', function(event) {
+    var frag = event.fragment
+    if (frag.classList.contains("frame-pointer")) {
+        var elems = document.getElementsByClassName("frame-pointer");
+        var i;
+        for (i = 0; i < elems.length; i++) {
+            if (elems[i].classList.contains("active-frame-pointer")) {
+                elems[i].classList.remove("active-frame-pointer");
+                frag.previousFrame = elems[i];
+                elems[i].classList.add("previous-frame-pointer");
+            }
+        }
+        event.fragment.classList.add("active-frame-pointer");
+    }
+});
+
+Reveal.addEventListener('fragmenthidden', function(event) {
+    var frag = event.fragment
+    if (frag.classList.contains("active-frame-pointer")) {
+        frag.classList.remove("active-frame-pointer");
+        frag.previousFrame.classList.add("active-frame-pointer");
+        frag.previousFrame.classList.remove("previous-frame-pointer");
+    }
+});
+            </script>
+    </body>
+</html>

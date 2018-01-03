@@ -1,0 +1,7 @@
+#!/bin/sh
+
+awk -- "BEGIN { printing = 0; }
+/^$1/ { printing = 1; }
+/.cfi_endproc/ { printing = 0; }
+{ if (printing) print; }
+"

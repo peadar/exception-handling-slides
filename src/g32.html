@@ -1,0 +1,83 @@
+<pre style="font-size:40%;background-color:#1f1f1f;overflow-y:auto;max-height:50em;color:#dcdcdc">
+<span class="lowlight">
+g():
+.LFB1440:
+	.cfi_startproc
+	.cfi_personality 0,__gxx_personality_v0
+	.cfi_lsda 0,.LLSDA1440
+</span> <span class="highlight">
+	pushl	%ebp
+</span> <span class="lowlight">
+	.cfi_def_cfa_offset 8
+	.cfi_offset 5, -8
+</span> <span class="highlight">
+	movl	%esp, %ebp
+</span> <span class="lowlight">
+	.cfi_def_cfa_register 5
+	pushl	%edi
+	pushl	%esi
+	pushl	%ebx
+	.cfi_offset 7, -12
+	.cfi_offset 6, -16
+	.cfi_offset 3, -20
+	leal	-26(%ebp), %esi
+	subl	$40, %esp
+	pushl	%esi
+.LEHB0:
+	call	CleanMe::CleanMe()
+.LEHE0:
+	addl	$16, %esp
+.LEHB1:
+	call	h()
+	leal	-25(%ebp), %edi
+	subl	$12, %esp
+	pushl	%edi
+	.cfi_escape 0x2e,0x10
+	call	CleanMe::CleanMe()
+.LEHE1:
+	addl	$16, %esp
+.LEHB2:
+	.cfi_escape 0x2e,0
+	call	h()
+.LEHE2:
+	subl	$12, %esp
+	pushl	%edi
+	call	CleanMe::~CleanMe()
+	movl	%esi, (%esp)
+	call	CleanMe::~CleanMe()
+	leal	-12(%ebp), %esp
+	popl	%ebx
+	.cfi_remember_state
+	.cfi_restore 3
+	popl	%esi
+	.cfi_restore 6
+	popl	%edi
+	.cfi_restore 7
+</span> <span class="highlight">
+	popl	%ebp
+</span> <span class="lowlight">
+	.cfi_restore 5
+	.cfi_def_cfa 4, 4
+	ret
+.L13:
+	.cfi_restore_state
+	movl	%eax, %ebx
+.L10:
+	subl	$12, %esp
+	pushl	%edi
+	call	CleanMe::~CleanMe()
+	addl	$16, %esp
+	jmp	.L11
+.L12:
+	movl	%eax, %ebx
+.L11:
+	subl	$12, %esp
+	pushl	%esi
+	call	CleanMe::~CleanMe()
+	movl	%ebx, (%esp)
+.LEHB3:
+	call	_Unwind_Resume
+.LEHE3:
+	.cfi_endproc
+        </span>
+</pre>

@@ -1,0 +1,26 @@
+landing pad base
+    encoding byte
+    value
+
+types table
+    encoding byte
+    pointer to start of types table (uleb)
+
+call site table
+    encoding byte
+    length
+
+    one or more:
+        start of instructions
+        length of instructions
+        "landing pad" location (what code to run)
+        action to take
+
+
+actions:
+        one or more:
+                type filter
+                        0 -> cleanup only
+                        positive value -> index of type that we handle for this case.
+                next entry
+   

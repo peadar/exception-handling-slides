@@ -1,0 +1,15 @@
+foo.dwarftables
+*.ecc
+*.ec
+*.es
+*.eh
+*.swp
+foo
+foo.cc
+foo.s
+foo32
+foo32.s
+htmlfilt
+sjlj
+
+foo-[fgh].s

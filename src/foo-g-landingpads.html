@@ -1,0 +1,50 @@
+<pre style="font-size:40%;background-color:#1f1f1f;overflow-y:auto;max-height:64em">
+<span class="lowlight">g():
+.LFB1440:
+<span class="lowlight">	.cfi_startproc
+</span><span style="color:magenta">	.cfi_personality 0x3,__gxx_personality_v0
+	.cfi_lsda 0x3,.LLSDA1440
+</span><span class="lowlight">	pushq	%rbx
+	.cfi_def_cfa_offset 16
+	.cfi_offset 3, -16
+	subq	$16, %rsp
+	.cfi_def_cfa_offset 32
+	leaq	14(%rsp), %rdi
+</span><span style="color:red">.LEHB0:
+	call	CleanMe::CleanMe()
+.LEHE0:
+</span><span style="color:green">.LEHB1:
+	call	h()
+	leaq	15(%rsp), %rdi
+	call	CleanMe::CleanMe()
+.LEHE1:
+</span><span style="color:cyan">.LEHB2:
+        call	h()
+.LEHE2:
+</span><span class="lowlight">	leaq	15(%rsp), %rdi
+	call	CleanMe::~CleanMe()
+	leaq	14(%rsp), %rdi
+	call	CleanMe::~CleanMe()
+	addq	$16, %rsp
+	.cfi_remember_state
+	.cfi_def_cfa_offset 16
+	popq	%rbx
+	.cfi_def_cfa_offset 8
+	ret
+</span><span style="color:yellow">.L13:
+	.cfi_restore_state
+	movq	%rax, %rbx
+.L10:
+	leaq	15(%rsp), %rdi
+	call	CleanMe::~CleanMe()
+	jmp	.L11
+</span><span style="color:orange">.L12:
+	movq	%rax, %rbx
+.L11:
+	leaq	14(%rsp), %rdi
+	call	CleanMe::~CleanMe()
+	movq	%rbx, %rdi
+.LEHB3:
+	call	_Unwind_Resume
+.LEHE3:
+	.cfi_endproc </span><pre>

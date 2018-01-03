@@ -1,0 +1,166 @@
+.reveal pre {
+    max-height: 90%;
+    width: 100%;
+}
+.reveal pre code {
+    max-height: 50em;
+    font-size: 80%;
+    line-height: 1.2em;
+}
+
+code {
+    color: #00a0a0;
+}
+
+.reveal {
+    font-size: 38px;
+}
+
+td.changed {
+    color: yellow;
+}
+
+.table {
+    width: 100%;
+    display:table;
+}
+
+div.left-pane {
+    float: left;
+    display:block;
+    width: 45%;
+    margin-left: 1em;
+    margin-right: 1em;
+    text-align: left;
+}
+
+.lowlight {
+    color: #808080;
+}
+
+.highlight {
+    color: #ffffff;
+}
+
+div.right-pane {
+    float: right;
+    text-align: left;
+    width: 45%;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+div.machine-stack {
+    border-style: solid;
+    border-color: #909090;
+    border-width: 10px;
+    border-top-width: 0px;
+    font-size: 30px;
+}
+
+td.stackframe {
+    display: block;
+    height:1.4em;
+    font-family: "mono";
+}
+
+.stackframe.startup {
+    background-color:#000080;
+}
+.stackframe.main {
+    background-color:#004040;
+}
+
+.stackframe.f {
+    background-color:#400040;
+}
+
+div.machine-stack * td {
+    border-width: 0px;
+
+}
+
+.stackframe.g {
+    background-color:#404000;
+}
+
+.stackframe.h {
+    background-color:#800000;
+}
+
+.stackframe.fp {
+    background-color:#303030;
+}
+
+.refs li.ref {
+    font-size: medium;
+}
+
+
+div.box {
+    text-align: left;
+    border-width: 1em;
+    margin: 0.2em;
+}
+
+.box.l1 {
+    float: right;
+    background-color: #204040;
+    max-width=30em;
+}
+
+.box.l2 {
+    background-color: #105050;
+}
+
+.box.l3 {
+    background-color: #006060;
+}
+
+.box.l4 {
+    background-color: #108080;
+    display: inline-block;
+}
+
+
+
+.callsite-table {
+    background-color: blue;
+}
+
+
+.action {
+    background-color: cyan;
+}
+
+.typeinfo {
+    background-color: orange;
+}
+
+tr td.esp {
+    visibility: hidden;
+}
+
+tr.current-fragment td.esp {
+    visibility: visible;
+}
+
+tr td.ebp {
+    visibility: hidden;
+}
+
+
+tr.frame-pointer td.ebp {
+    opacity: 0.1;
+    visibility: visible;
+}
+
+tr.active-frame-pointer td.ebp {
+    opacity: 1.0;
+    visibility: visible;
+}
+
+
+td.stackspace {
+    border-width:0px;
+}
