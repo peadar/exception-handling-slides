@@ -1,13 +1,18 @@
 #include <iostream>
 #include "raiitype.h"
 
-int i(int a) {
+int j(int a) {
     CleanMe here;
     CleanMe too;
     if (a != 100) {
         throw 9;
     }
     return a + 1;
+}
+
+
+int i(int a) {
+    return j(a + 1);
 }
 
 
