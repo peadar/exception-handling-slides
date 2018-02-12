@@ -68,7 +68,7 @@
                                 <li class="fragment">first returns 0</li>
                                 <li class="fragment">... but stores machine state (register set) in the <code>jmp_buf</code></li>
                                 <li class="fragment"><code>longjmp</code> causes a non-local transfer of control - restores registers from <code>jmp_buf</code>, including stack pointer and program counter</li>
-                                <li class="fragment">Organizes to make it look like <code>setjmp</code> returns a second time, but with a new return value</li>
+                                <li class="fragment">Control resumes at call site to <code>setjmp</code>, but now with the return value as specified by the <code>longjmp</code> call</li>
                                 <li class="fragment">Any stack storage used is recovered, but that's it - no destructors called</li>
                             </ul>
                         </div>
@@ -111,8 +111,6 @@
                         </div>
                     </section>
 
-<!--
-    This was to show an actual compiler output with sjlj. It's not really necessary.
                     <section data-transition="fade-in slide-out">
                         <div class="left-pane">
                             <pre> <code class="c++" data-external="src/foo.ecc"> </code></pre>
@@ -120,16 +118,8 @@
                         <div class="right-pane">
                             <pre> <code class="x86asm" data-external="src/foo.freebsd4.es"> </code></pre>
                         </div>
-                        <aside class="notes">
-                            <ul>
-                                <li> Look at the implementation of "h" briefly - not much to see, but it does call _get_eh_context, and eventually _sjthrow</li>
-                                <li> Look at "g" - it needs to call get_eh_context, and updates the content when each object is constructed.</li>
-                                <li> Look at "f" - before calling "g", it saves .L494" into the eh_context, which points to the code that handles the exception</li>
-                            </ul>
-                        </aside>
                     </section>
 
-                    -->
                     <section data-transition="fade-in slide-out">
                         <div class="left-pane">
                             <pre> <code class="c" data-external="src/sjljeg.ec"> </code> </pre>
