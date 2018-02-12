@@ -1,6 +1,6 @@
 COMMFLAGS = -Os -static -fno-stack-protector -Wall -pedantic
 CXXFLAGS += $(COMMFLAGS) -std=c++11
-CFLAGS += $(COMMFLAGS)
+CFLAGS += $(COMMFLAGS) -std=c99
 
 LDFLAGS +=
 .SUFFIXES: .es .ec .ecc .eh

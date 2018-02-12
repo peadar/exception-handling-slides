@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="right-pane">
-                            <p>Improvement: Maintain a runtime-stack of clean-ups and catch blocks</p>
+                            <p>Dealing with cleanup: Maintain a runtime-stack of clean-ups and catch blocks</p>
                             <ul>
                                 <li class="fragment"><code>try</code> sets up an exception handling "frame" with a <code>jmp_buf</code> embedded in it</li>
                                 <li class="fragment">Functions can push cleanup handlers onto the "current" frame</li>

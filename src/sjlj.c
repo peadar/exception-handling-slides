@@ -11,19 +11,17 @@ jmp_buf *try(struct ExceptionState *entry) {
 void throw(void *data, const void *type) {
     stack->exception = data;
     stack->type = type;
-    longjmp(stack->jmpBuf, 1);
-}
-
-void endTry() {
-    stack = stack->next;
-}
-
-void catch() {
     while (stack->cleanupCount-- != 0) {
         struct CleanupHandler *h = &stack->cleanup[stack->cleanupCount];
         h->handler(h->data);
     }
+    struct ExceptionState *top = stack;
     endTry();
+    longjmp(top->jmpBuf, 1);
+}
+
+void endTry() {
+    stack = stack->next;
 }
 
 void pushCleanup(void *data, void (*handler)(void *)) {

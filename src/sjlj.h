@@ -12,12 +12,11 @@ struct ExceptionState {
     jmp_buf jmpBuf;
     int cleanupCount;
     void *exception;
-    const const char *type;
+    const char *type;
 };
 
 jmp_buf *try(struct ExceptionState *entry);
 void throw(void *data, const void *type);
 void endTry();
-void catch();
 void pushCleanup(void *data, void (*handler)(void *));
 void popCleanup();
