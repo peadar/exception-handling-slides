@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>C++ Exception Handling - The Gory Details</title>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -39,20 +39,18 @@
                     </div>
 
                     <div class="right-pane">
-                        <p class="fragment"> Why?
+                        <p class="fragment"> Why?  </p>
                         <ul>
                             <li class="fragment">"Happy path" code kept together</li>
                             <li class="fragment">Error-handling is separated</li>
                             <li class="fragment">Cleanup with RAII happens implicitly</li>
                             <li class="fragment"><b>Should</b> be cheap/free if exceptions are not thrown</li>
                         </ul>
-                        </p>
-                        <p class="fragment"> How?
+                        <p class="fragment"> How?</p>
                         <ul>
                             <li class="fragment"><code>setjmp/longjmp</code>, as used by GCC where there's no other option</li>
                             <li class="fragment">DWARF based, as used on supporting platforms, including Linux on x86 and amd64</li>
                         </ul>
-                        </p>
                     </div>
 
                 </section>
@@ -162,7 +160,6 @@
                                 <li class="fragment">Pretty much 0 cost for the happy path</li>
                                 <li class="fragment">May be quite expensive for the sad path - we'll look at what's involved</li>
                             </ul>
-                            </p>
                         </div>
                     </section>
                     <section>
@@ -173,8 +170,9 @@
                             </div>
 
                             <div class="right-pane">
-                                <img src="img/LSDA-C++.svg" style="border-width:0;background-color:#222222" ></img>
+                                <img src="img/LSDA-C++.svg" style="border-width:0;background-color:#222222" alt="lsda-table">
                             </div>
+                        </div>
 
                     </section>
                     <section>
@@ -260,8 +258,7 @@
                                     <tr class="fragment" data-fragment-index="4"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe startup">argv</td></tr>
                                     <tr class="fragment frame-pointer active-frame-pointer" data-fragment-index="3"><td class="ebp">EBP</td><td class="esp">ESP</td><td class="stackframe startup">EBP somewhere down here</td></tr>
                                 </table>
-                            <div class="machine-stack">
-
+                            </div>
                         </div>
 
                     </section>
@@ -456,8 +453,8 @@
                             </div>
                         </div>
                         <div class="right-pane">
+                            <br>
                             <ul> 
-                                <br></br>
                                 <li class="fragment"><code>__cxa_throw</code> Takes 3 arguments
                                     <ul>
                                         <li>A pointer to the exception being thrown</li>
@@ -485,10 +482,10 @@
                 <section>
                     <h2>Questions?</h2>
                     <ul style="font-size: 70%">
-                        <li>If you found this at all interesting, read Ian Lance Taylor's blogposts on <a href="https://www.airs.com/blog/archives/38">Linkers and Loaders </a></li>
-                        <li>I found <a href="https://monoinfinito.wordpress.com/series/exception-handling-in-c/"> this</a> series of posts by Nicolas Brailovsky</a> in the process of preparing my slides: It goes over very similar ground in a lot of detail if you want to get your hands dirty</li>
-                        <li>The <code>_Unwind*</code> interface was originally documented for Itanium <a href="https://itanium-cxx-abi.github.io/cxx-abi/abi-eh.html">here</a></li>
-                        <li>The <code>.eh_frame</code> format is an extension of what's specified by int the <a href=https://www.google.ie/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjAkIqOyuTYAhUNHGMKHW-QAMYQFggnMAA&url=http%3A%2F%2Fwww.dwarfstd.org%2Fdoc%2FDWARF4.pdf&usg=AOvVaw3DhnGtxLoAdE2J8xUm208i">DWARF </a></li>
+                        <li class="ref">If you found this at all interesting, read Ian Lance Taylor's blogposts on <a href="https://www.airs.com/blog/archives/38">Linkers and Loaders </a></li>
+                        <li class="ref">I found <a href="https://monoinfinito.wordpress.com/series/exception-handling-in-c/"> this</a> series of posts by Nicolas Brailovsky in the process of preparing my slides: It goes over very similar ground in a lot of detail if you want to get your hands dirty</li>
+                        <li class="ref">The <code>_Unwind*</code> interface was originally documented for Itanium <a href="https://itanium-cxx-abi.github.io/cxx-abi/abi-eh.html">here</a></li>
+                        <li class="ref">The <code>.eh_frame</code> format is an extension of what's specified by int the <a href="https://www.dwarfstd.org">DWARF</a></li>
                         <li class="ref">Section 5.4 of <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/TR18015.pdf">Technical Report on C++ Performance</a> deals with the overhead of exceptions</li>
                         <li class="ref">These slides are at <a href="http://isainmdom.com/~peadar/eximpl">http://isainmdom.com/~peadar/eximpl</a></li>
                     </ul>
