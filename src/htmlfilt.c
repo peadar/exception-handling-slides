@@ -13,4 +13,5 @@ main()
             default: putc(c,stdout); break;
         }
     }
+    return 0;
 }
