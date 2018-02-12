@@ -61,7 +61,7 @@ div.machine-stack {
 td.stackframe {
     display: block;
     height:1.4em;
-    font-family: "mono";
+    font-family: "Source Sans Pro";
 }
 
 .stackframe.startup {
