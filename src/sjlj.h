@@ -1,4 +1,5 @@
 #include <setjmp.h>
+#include <stdlib.h>
 #define MAX_CLEANUPS 1024
 
 struct CleanupHandler {

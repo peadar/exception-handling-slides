@@ -2,20 +2,32 @@
     max-height: 90%;
     width: 100%;
 }
+
+
 .reveal pre code {
-    max-height: 50em;
-    font-size: 80%;
+    max-height: 40em;
+    /* font-size: 90%;*/
     line-height: 1.2em;
+}
+
+
+pre.codeblock {
+   font-size:50%;
+   background-color:#1f1f1f;
+   overflow-y:auto;
+   max-height:45em;
+   color:#dcdcdc;
 }
 
 code {
     color: #00a0a0;
 }
 
+/*
 .reveal {
-    font-size: 38px;
+    font-size: 40px;
 }
-
+*/
 td.changed {
     color: yellow;
 }
@@ -53,9 +65,9 @@ div.right-pane {
 div.machine-stack {
     border-style: solid;
     border-color: #909090;
-    border-width: 10px;
+    border-width: 8px;
     border-top-width: 0px;
-    font-size: 30px;
+    font-size: 28px;
 }
 
 td.stackframe {
