@@ -34,7 +34,6 @@
                 <section>
                     <h3>C++ Exceptions</h3>
                     <div class="left-pane">
-                        <p> <a href="src/foo.cc">Basic example:</a></p>
                         <pre> <code class="c++" data-external="src/foo.ecc"> </code> </pre>
                     </div>
 
@@ -102,7 +101,7 @@
                         </div>
                     </section>
 
-                    <section data-transition="fade">
+                    <section data-transition="fade-in slide-out">
                         <br>
                         <div class="left-pane">
                             <pre> <code class="c" data-external="src/sjljeg.ec"> </code> </pre>
@@ -112,16 +111,40 @@
                         </div>
                     </section>
 
-                    <section data-transition="fade-in slide-out">
+                    <section data-transition="slide-in fade-out">
                         <div class="left-pane">
+                           <p>As implemented in FreeBSD 4.11 (c 2004)</p>
                             <pre> <code class="c++" data-external="src/foo.ecc"> </code></pre>
                         </div>
                         <div class="right-pane">
-                            <pre> <code class="x86asm" data-external="src/foo.freebsd4.es"> </code></pre>
+                            <pre> <code class="x86asm" data-external="src/foo.freebsd4-h.es"> </code></pre>
                         </div>
                     </section>
 
+                    <section data-transition="fade">
+                        <div class="left-pane">
+                           <p>As implemented in FreeBSD 4.11 (c 2004)</p>
+                            <pre> <code class="c++" data-external="src/foo.ecc"> </code></pre>
+                            <p style="text-align:right" class="fragment"> Note the happy path overhead ->
+                        </div>
+                        <div class="right-pane">
+                            <pre> <code class="x86asm" data-external="src/foo.freebsd4-g.es"> </code></pre>
+                        </div>
+                    </section>
+
+
                     <section data-transition="fade-in slide-out">
+                        <div class="left-pane">
+                           <p>As implemented in FreeBSD 4.11 (c 2004)</p>
+                            <pre> <code class="c++" data-external="src/foo.ecc"> </code></pre>
+                        </div>
+                        <div class="right-pane">
+                            <pre> <code class="x86asm" data-external="src/foo.freebsd4-f.es"> </code></pre>
+                        </div>
+                    </section>
+
+
+                    <section>
                         <div class="left-pane">
                             <pre> <code class="c" data-external="src/sjljeg.ec"> </code> </pre>
                         </div>
@@ -176,7 +199,7 @@
                     <section>
 
                        <div class="left-pane">
-                            Compiler output <a href="src/foo.s">foo.s</a>
+                            Compiler output <a href="src/foo.s">foo.s</a> Cost-free happy-path!
                             <div data-external="src/foo-g-landingpads.html"> </div>
                         </div>
 
@@ -191,12 +214,23 @@
 
                 <section>
                     <h3> Stack Unwinding</h3>
-                    <div class="right-pane">
-                           <br>
-                        <div class="machine-stack">
-                            <table>
-                                <tr><td></td><td class="stackspace">&nbsp;</td></tr>
-                                <tr><td></td><td class="stackspace">&nbsp;</td></tr>
+                    <section data-transition="slide-in fade-out">
+
+                       <div class="left-pane">
+                          <pre><code data-external="src/foo.ecc" class="c"> </code></pre>
+                       </div>
+                       <div class="right-pane">
+
+                          <p> Our table-based approach only tells us what to do for the local function. How do we find out where we are in <code>g()</code> when <code>h()</code> throws an exception?</p>
+                       </div>
+                    </section>
+                    <section data-transition="slide-out fade-in">
+                       <div class="left-pane">
+                          <pre><code data-external="src/foo.ecc" class="c"> </code></pre>
+                       </div>
+                       <div class="right-pane">
+                          <div class="machine-stack">
+                             <table>
                                 <tr><td></td><td class="stackspace">&nbsp;</td></tr>
                                 <tr class="fragment" data-fragment-index="13"><td></td><td class="stackframe h">...</td></tr>
                                 <tr class="fragment" data-fragment-index="12"><td class="esp">ESP</td><td class="stackframe g">return-address back to g</td> </tr>
@@ -211,14 +245,12 @@
                                 <tr class="fragment" data-fragment-index="3"><td class="esp">ESP</td><td class="stackframe startup">return address back to C startup</td></tr>
                                 <tr class="fragment" data-fragment-index="2"><td class="esp">ESP</td><td class="stackframe startup">argc</td></tr>
                                 <tr class="fragment" data-fragment-index="1"><td class="esp">ESP</td><td class="stackframe startup">argv</td></tr>
-                            </table>
+                             </table>
 
-                        </div>
-                    </div>
-                    <div class="left-pane">
-                        <p> Our table-based approach only tells us what to do for the local function. How do we find out where we are in <code>g()</code> when <code>h()</code> throws an exception?</p>
-                        <pre><code data-external="src/foo.ecc" class="c"> </code></pre>
-                    </div>
+                          </div>
+                       </div>
+
+                    </section>
                 </section>
 
                 <section>
@@ -319,7 +351,7 @@
 
                                 <tr>
                                     <td>
-                                        CFA->
+                                        CFA ("previous frame ESP") ->
                                     </td>
                                     <td class="stackframe f">arguments into  <code>g</code></td>
                                 </tr>
@@ -435,7 +467,7 @@
                             <div data-external="src/foo-g.html"> </div> 
                         </div>
                         <div class="right-pane">
-                            <p>Selected <a href="src/foo.dwarftables">output</a> from <br><cite><code>readelf --debug-dump=frames foo.o </code></cite></p>
+                           <a href="src/foo.dwarftables"><code>readelf --debug-dump=frames foo.o </code></a>
                             <pre> <code data-external="src/foo.dwarftables.g"> </code> </pre>
                         </div>
                     </section>
@@ -450,48 +482,38 @@
                             <ul>
                                 <li class="fragment">From the CPUs program counter, locate the ELF image that provides the code</li>
                                 <li class="fragment">Within this ELF image, find the .eh_frame section</li>
-                                <li class="fragment">Find the FDE covering the current CPU program counter in <code>.eh_frame</code></li>
-                                <li class="fragment">Initialize the caller's frame information from the CIE instructions</li>
-                                <li class="fragment">Execute the FDE's instructions until the virtual instruction pointer  reaches our CPU instruction pointer</li>
+                                <li class="fragment">Find the FDE/function covering the current CPU program counter in <code>.eh_frame</code></li>
+                                <li class="fragment">Initialize the function's state table from the CIE instructions, with virtual instruction pointer at start of function</li>
+                                <li class="fragment">Execute the FDE's instructions until the virtual instruction pointer reaches our CPU instruction pointer</li>
                                 <li class="fragment">This generates the state for the calling frame - including the program counter where control would have returned to it</li>
-                                <li class="fragment">Use this to find the LSDA information and handle our exception based on program counter for this frame</li>
+                                <li class="fragment">Use this to find the LSDA information</li>
+                                <li class="fragment">Pass C++ runtime the LSDA and frame information to either cleanup, or catch the exception</li>
                                 <li class="fragment">We can repeat until we've found a handler for the exception</li>
                             </ul>
                     </section>
 
                     <section>
-                        <div class="left-pane">
-                            <div class="position:relative">
-                                <pre class="fragment current-visible" style="position:absolute;top:0;width:50%"> <code data-external="src/foo-h.es" class="c++"> </code> </pre>
-                                <pre class="fragment" style="position:absolute;top:0;width:50%"> <code data-external="src/__cxa_throw.ecc" class="c++"> </code> </pre>
-                            </div>
-                        </div>
-                        <div class="right-pane">
-                            <br>
-                            <ul> 
-                                <li class="fragment"><code>__cxa_throw</code> Takes 3 arguments
-                                    <ul>
-                                        <li>A pointer to the exception being thrown</li>
-                                        <li>The type of the thrown exception (std::type_info)</li>
-                                        <li>A pointer to the exception's destructor</li>
-                                    </ul>
-                                <li class="fragment">part of the C++ runtime, but stack unwinding and exception handling is required by other languages, too</li>
-                                <li class="fragment">Calls language-agnostic _Unwind_RaiseException, passing it the above in an opaque wrapper</li>
-                                <li class="fragment">Two-phase process</li>
-                                <li class="fragment">Search phase - find the frame where execution will resume</li>
-                                <li class="fragment">Cleanup phase - handle the exception, cleaning up any stack resources.</li>
-                            </ul>
-                        </div>
+                             <pre> <code data-external="src/foo-h.es" class="c++"> </code> </pre>
+                             <p><code>h</code> calls <code>__cxa_throw</code> to actually raise the exception</p>
+                    </section>
+                    <section>
+                            <pre> <code data-external="src/__cxa_throw.ecc" class="c++"> </code> </pre>
+                            <p><code>__cxa_throw</code> is part of the C++ runtime; stack unwinding is handled by <code>_Unwind_RaiseException</code></p>
                     </section>
 
                     <section>
-                        <div class="left-pane">
-                            <pre> <code data-external="src/libgcc/unwind.inc" class="c++"> </code> </pre>
-                        </div>
-                        <div class="right-pane">
-                            <pre> <code data-external="src/eh_personality.ecc" class="c++"> </code> </pre>
-                        </div>
+                            <pre> <code data-external="src/libgcc/unwind-re.inc" class="c++"> </code> </pre>
+                            <p>First phase - Search - find the frame where execution will resume</p>
                     </section>
+                    <section>
+                            <pre> <code data-external="src/libgcc/unwind-rep2.inc" class="c++"> </code> </pre>
+                             <p>Second phase - cleanup - handle the exception, cleaning up any stack resources.</p>
+                    </section>
+                    <section>
+                            <pre> <code data-external="src/personality.ecc" class="c++"> </code> </pre>
+                            <p>finally, our personality routine: handle the C++ side</p>
+                    </section>
+
                 </section>
                 <section>
                     <h2>Questions?</h2>

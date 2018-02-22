@@ -5,7 +5,7 @@ CFLAGS += $(COMMFLAGS) -std=c99
 LDFLAGS +=
 .SUFFIXES: .es .ec .ecc .eh
 
-TARGETS = htmlfilt foo.es foo32 foo32.es sjlj foo.dwarftables foo foo.ecc sjljeg.ec sjljbasic.ec foo.es foo.ecc sjljbasic.ec sjljeg.ec foo-explicit.ec foo.freebsd4.es foo32.s foo.s __cxa_throw.ecc libgcc/unwind-dw2.ec foo-g.ecc sjlj.eh sjlj.ec foo-g.es foo-h.es foo-f.es eh_personality.ecc
+TARGETS = htmlfilt foo.es foo32 foo32.es sjlj foo.dwarftables foo foo.ecc sjljeg.ec sjljbasic.ec foo.es foo.ecc sjljbasic.ec sjljeg.ec foo-explicit.ec foo.freebsd4.es foo32.s foo.s __cxa_throw.ecc libgcc/unwind-dw2.ec foo-g.ecc sjlj.eh sjlj.ec foo-g.es foo-h.es foo-f.es eh_personality.ecc foo.freebsd4-g.es foo.freebsd4-h.es foo.freebsd4-f.es personality.ecc
 
 all: $(TARGETS)
 
@@ -20,6 +20,18 @@ foo: foo.o
 
 foo-g.s: foo.s
 	./extract-func-asm _Z1gv < $^ > $@
+
+foo.freebsd4-g.s: foo.freebsd4.s
+	./extract-func-asm g__Fv < $^ > $@
+
+foo.freebsd4-f.s: foo.freebsd4.s
+	./extract-func-asm f__Fv < $^ > $@
+
+
+foo.freebsd4-h.s: foo.freebsd4.s
+	./extract-func-asm h__Fv < $^ > $@
+
+
 
 foo-f.s: foo.s
 	./extract-func-asm _Z1fv < $^ > $@

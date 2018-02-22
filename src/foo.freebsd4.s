@@ -1,6 +1,6 @@
 	.file	"t.cc"
 	.version	"01.01"
-.stabs "/home/peadar/",100,0,0,.Ltext0
+.stabs "/usr/home/peadar/",100,0,0,.Ltext0
 .stabs "t.cc",100,0,0,.Ltext0
 .text
 .Ltext0:
@@ -72,7 +72,7 @@
 .stabs "__uint32_t:t(7,8)=(0,4)",128,0,135,0
 .stabs "__intptr_t:t(7,9)=(0,1)",128,0,137,0
 .stabs "__uintptr_t:t(7,10)=(0,4)",128,0,138,0
-.stabs "__mbstate_t:t(7,11)=u128__mbstate8:(7,12)=ar(0,1);0;127;(0,2),0,1024;_mbstateL:(7,1),0,64;__as::(7,13)=#(7,11),(7,14)=&(7,11),(7,15)=*(7,11),(7,16)=&(7,11),(0,20);:$_0::operator=($_0 const &);2A.;$_0::(7,17)=#(7,11),(7,15),(7,15),(7,16),(0,20);:$_0::$_0($_0 const &);2A.(7,18)=#(7,11),(7,15),(7,15),(0,20);:$_0::$_0(void);2A.;;",128,0,147,0
+.stabs "__mbstate_t:t(7,11)=u128__mbstate8:(7,12)=ar(0,1);0;127;(0,2),0,1024;_mbstateL:(7,1),0,64;__as::(7,13)=#(7,11),(7,14)=&(7,11),(7,15)=*(7,11),(7,16)=&(7,11),(0,20);:__as__3$_0RC3$_0;2A.;$_0::(7,17)=#(7,11),(7,15),(7,15),(7,16),(0,20);:__3$_0RC3$_0;2A.(7,18)=#(7,11),(7,15),(7,15),(0,20);:__3$_0;2A.;;",128,0,147,0
 .stabn 162,0,0,0
 .stabs "ptrdiff_t:t(6,1)=(0,1)",128,0,43,0
 .stabs "rune_t:t(6,2)=(0,1)",128,0,47,0
@@ -84,7 +84,7 @@
 .stabs "_IO_lock_t:t(4,1)=(0,20)",128,0,184,0
 .stabs "_IO_marker:Tt(4,2)=s12_next:(4,3)=*(4,2),0,32;_sbuf:(4,4)=*(4,5)=xs_IO_FILE:,32,32;_pos:(0,1),64,32;__as::(4,6)=##(4,7)=&(4,2);:RC10_IO_marker;2A.;_IO_marker::(4,8)=##(4,3);:RC10_IO_marker;2A.(4,9)=##(4,3);:;2A.;;",128,0,209,0
 .stabs "_IO_FILE:Tt(4,5)=s76_flags:(0,1),0,32;_IO_read_ptr:(5,29),32,32;_IO_read_end:(5,29),64,32;_IO_read_base:(5,29),96,32;_IO_write_base:(5,29),128,32;_IO_write_ptr:(5,29),160,32;_IO_write_end:(5,29),192,32;_IO_buf_base:(5,29),224,32;_IO_buf_end:(5,29),256,32;_IO_save_base:(5,29),288,32;_IO_backup_base:(5,29),320,32;_IO_save_end:(5,29),352,32;_markers:(4,3),384,32;_chain:(4,4),416,32;_fileno:(0,1),448,32;_blksize:(0,1),480,32;_offset:(5,18),512,64;_cur_column:(0,9),576,16;_unused:(0,2),592,8;_shortbuf:(4,10)=ar(0,1);0;0;(0,2),600,8;__as::(4,11)=##(4,12)=&(4,5);:RC8_IO_FILE;2A.;_IO_FILE::(4,13)=##(4,4);:RC8_IO_FILE;2A.(4,14)=##(4,4);:;2A.;;",128,0,257,0
-.stabs "_IO_cookie_io_functions_t:t(4,15)=s16read:(4,16)=*(4,17)=f(5,26),0,32;write:(4,18)=*(4,19)=f(5,26),32,32;seek:(4,20)=*(4,21)=f(5,18),64,32;close:(4,22)=*(4,23)=f(0,1),96,32;__as::(4,24)=#(4,15),(4,25)=&(4,15),(4,26)=*(4,15),(4,27)=&(4,15),(0,20);:$_1::operator=($_1 const &);2A.;$_1::(4,28)=#(4,15),(4,26),(4,26),(4,27),(0,20);:$_1::$_1($_1 const &);2A.(4,29)=#(4,15),(4,26),(4,26),(0,20);:$_1::$_1(void);2A.;;",128,0,283,0
+.stabs "_IO_cookie_io_functions_t:t(4,15)=s16read:(4,16)=*(4,17)=f(5,26),0,32;write:(4,18)=*(4,19)=f(5,26),32,32;seek:(4,20)=*(4,21)=f(5,18),64,32;close:(4,22)=*(4,23)=f(0,1),96,32;__as::(4,24)=#(4,15),(4,25)=&(4,15),(4,26)=*(4,15),(4,27)=&(4,15),(0,20);:__as__3$_1RC3$_1;2A.;$_1::(4,28)=#(4,15),(4,26),(4,26),(4,27),(0,20);:__3$_1RC3$_1;2A.(4,29)=#(4,15),(4,26),(4,26),(0,20);:__3$_1;2A.;;",128,0,283,0
 .stabs "_IO_cookie_file:Tt(4,30)=s100file:(4,5),0,608;vtable:(4,31)=*(0,20),608,32;cookie:(0,23),640,32;io_functions:(4,15),672,128;__as::(4,32)=##(4,33)=&(4,30);:RC15_IO_cookie_file;2A.;_IO_cookie_file::(4,34)=##(4,35)=*(4,30);:RC15_IO_cookie_file;2A.(4,36)=##(4,35);:;2A.;;",128,0,292,0
 .stabn 162,0,0,0
 .stabs "streamoff:t(3,1)=(5,18)",128,0,77,0
@@ -109,19 +109,19 @@
 .stabs "unexpected_handler:t(9,4)=(9,2)",128,0,27,0
 .stabn 162,0,0,0
 .stabs "raiitype.h",130,0,0,0
-.stabs "CleanMe:Tt(10,1)=s1__as::(10,2)=##(10,3)=&(10,1);:RC7CleanMe;2A.;CleanMe::(10,4)=##(10,5)=*(10,1);:RC7CleanMe;2A.(10,6)=##(10,5);:;2A.(10,7)=#(10,1),(0,20),(10,5),(0,1),(0,20);:CleanMe::~CleanMe(void);2A.;;",128,0,4,0
+.stabs "CleanMe:Tt(10,1)=s1__as::(10,2)=##(10,3)=&(10,1);:RC7CleanMe;2A.;CleanMe::(10,4)=##(10,5)=*(10,1);:RC7CleanMe;2A.(10,6)=##(10,5);:;2A.(10,7)=#(10,1),(0,20),(10,5),(0,1),(0,20);:_$_7CleanMe;2A.;;",128,0,4,0
 .stabn 162,0,0,0
 .stabs "/usr/include/g++/cstdlib",130,0,0,0
 .stabs "/usr/include/stdlib.h",130,0,0,0
-.stabs "div_t:t(12,1)=s8quot:(0,1),0,32;rem:(0,1),32,32;__as::(12,2)=#(12,1),(12,3)=&(12,1),(12,4)=*(12,1),(12,5)=&(12,1),(0,20);:$_4::operator=($_4 const &);2A.;$_4::(12,6)=#(12,1),(12,4),(12,4),(12,5),(0,20);:$_4::$_4($_4 const &);2A.(12,7)=#(12,1),(12,4),(12,4),(0,20);:$_4::$_4(void);2A.;;",128,0,66,0
-.stabs "ldiv_t:t(12,8)=s8quot:(0,3),0,32;rem:(0,3),32,32;__as::(12,9)=#(12,8),(12,10)=&(12,8),(12,11)=*(12,8),(12,12)=&(12,8),(0,20);:$_5::operator=($_5 const &);2A.;$_5::(12,13)=#(12,8),(12,11),(12,11),(12,12),(0,20);:$_5::$_5($_5 const &);2A.(12,14)=#(12,8),(12,11),(12,11),(0,20);:$_5::$_5(void);2A.;;",128,0,71,0
+.stabs "div_t:t(12,1)=s8quot:(0,1),0,32;rem:(0,1),32,32;__as::(12,2)=#(12,1),(12,3)=&(12,1),(12,4)=*(12,1),(12,5)=&(12,1),(0,20);:__as__3$_4RC3$_4;2A.;$_4::(12,6)=#(12,1),(12,4),(12,4),(12,5),(0,20);:__3$_4RC3$_4;2A.(12,7)=#(12,1),(12,4),(12,4),(0,20);:__3$_4;2A.;;",128,0,66,0
+.stabs "ldiv_t:t(12,8)=s8quot:(0,3),0,32;rem:(0,3),32,32;__as::(12,9)=#(12,8),(12,10)=&(12,8),(12,11)=*(12,8),(12,12)=&(12,8),(0,20);:__as__3$_5RC3$_5;2A.;$_5::(12,13)=#(12,8),(12,11),(12,11),(12,12),(0,20);:__3$_5RC3$_5;2A.(12,14)=#(12,8),(12,11),(12,11),(0,20);:__3$_5;2A.;;",128,0,71,0
 .stabn 162,0,0,0
 .stabn 162,0,0,0
 	.p2align 2,0x90
-.stabs "h(void):F(0,1)",36,0,6,h(void)
-.globl h(void)
-		.type		 h(void),@function
-h(void):
+.stabs "h__Fv:F(0,1)",36,0,6,h__Fv
+.globl h__Fv
+		.type		 h__Fv,@function
+h__Fv:
 .LBB2:
 .LBB3:
 	pushl %ebp
@@ -130,16 +130,16 @@ h(void):
 	pushl %edi
 	pushl %esi
 	pushl %ebx
-.stabn 68,0,6,.LM1-h(void)
+.stabn 68,0,6,.LM1-h__Fv
 .LM1:
 	call __get_eh_context
 	movl %eax,-52(%ebp)
-.stabn 68,0,7,.LM2-h(void)
+.stabn 68,0,7,.LM2-h__Fv
 .LM2:
 	call random
 	testl %eax,%eax
 	je .L491
-.stabn 68,0,8,.LM3-h(void)
+.stabn 68,0,8,.LM3-h__Fv
 .LM3:
 .LBB4:
 .LBB5:
@@ -158,12 +158,12 @@ h(void):
 	movl %eax,4(%edx)
 .stabs "/usr/include/g++/exception",132,0,0,.Ltext1
 .Ltext1:
-.stabn 68,0,15,.LM4-h(void)
+.stabn 68,0,15,.LM4-h__Fv
 .LM4:
 	movl $_vt$9exception,-4(%ebp)
 .stabs "t.cc",132,0,0,.Ltext2
 .Ltext2:
-.stabn 68,0,8,.LM5-h(void)
+.stabn 68,0,8,.LM5-h__Fv
 .LM5:
 	addl $-12,%esp
 	pushl $4
@@ -184,7 +184,7 @@ h(void):
 	pushl %edx
 	movl -48(%ebp),%eax
 	pushl %eax
-	call exception::exception(exception const &)
+	call __9exceptionRC9exception
 .LBB7:
 .LBB8:
 .LBE8:
@@ -199,12 +199,12 @@ h(void):
 	movl %edx,4(%eax)
 .stabs "/usr/include/g++/exception",132,0,0,.Ltext3
 .Ltext3:
-.stabn 68,0,16,.LM6-h(void)
+.stabn 68,0,16,.LM6-h__Fv
 .LM6:
 	movl $_vt$9exception,-4(%ebp)
 .stabs "t.cc",132,0,0,.Ltext4
 .Ltext4:
-.stabn 68,0,8,.LM7-h(void)
+.stabn 68,0,8,.LM7-h__Fv
 .LM7:
 	addl $-4,%esp
 	pushl $_$_9exception
@@ -225,7 +225,7 @@ h(void):
 #APP
 	
 #NO_APP
-	call terminate(void)
+	call terminate__Fv
 	.p2align 2,0x90
 .L491:
 	leal -72(%ebp),%esp
@@ -235,28 +235,28 @@ h(void):
 	leave
 	ret
 .Lfe1:
-		.size		 h(void),.Lfe1-h(void)
-.stabn 192,0,0,.LBB2-h(void)
-.stabn 192,0,0,.LBB3-h(void)
-.stabn 192,0,0,.LBB4-h(void)
-.stabn 192,0,0,.LBB5-h(void)
-.stabn 192,0,0,.LBB6-h(void)
-.stabn 224,0,0,.LBE6-h(void)
-.stabn 224,0,0,.LBE5-h(void)
-.stabn 192,0,0,.LBB7-h(void)
-.stabn 192,0,0,.LBB8-h(void)
-.stabn 224,0,0,.LBE8-h(void)
-.stabn 224,0,0,.LBE7-h(void)
-.stabn 224,0,0,.LBE4-h(void)
-.stabn 224,0,0,.LBE3-h(void)
-.stabn 224,0,0,.LBE2-h(void)
+		.size		 h__Fv,.Lfe1-h__Fv
+.stabn 192,0,0,.LBB2-h__Fv
+.stabn 192,0,0,.LBB3-h__Fv
+.stabn 192,0,0,.LBB4-h__Fv
+.stabn 192,0,0,.LBB5-h__Fv
+.stabn 192,0,0,.LBB6-h__Fv
+.stabn 224,0,0,.LBE6-h__Fv
+.stabn 224,0,0,.LBE5-h__Fv
+.stabn 192,0,0,.LBB7-h__Fv
+.stabn 192,0,0,.LBB8-h__Fv
+.stabn 224,0,0,.LBE8-h__Fv
+.stabn 224,0,0,.LBE7-h__Fv
+.stabn 224,0,0,.LBE4-h__Fv
+.stabn 224,0,0,.LBE3-h__Fv
+.stabn 224,0,0,.LBE2-h__Fv
 .Lscope0:
-.stabs "",36,0,0,.Lscope0-h(void)
+.stabs "",36,0,0,.Lscope0-h__Fv
 	.p2align 2,0x90
-.stabs "g(void):F(0,1)",36,0,11,g(void)
-.globl g(void)
-		.type		 g(void),@function
-g(void):
+.stabs "g__Fv:F(0,1)",36,0,11,g__Fv
+.globl g__Fv
+		.type		 g__Fv,@function
+g__Fv:
 .LBB9:
 	pushl %ebp
 	movl %esp,%ebp
@@ -264,16 +264,16 @@ g(void):
 	pushl %edi
 	pushl %esi
 	pushl %ebx
-.stabn 68,0,11,.LM8-g(void)
+.stabn 68,0,11,.LM8-g__Fv
 .LM8:
 	call __get_eh_context
 	movl %eax,%edi
-.stabn 68,0,12,.LM9-g(void)
+.stabn 68,0,12,.LM9-g__Fv
 .LM9:
 	addl $-12,%esp
 	leal -1(%ebp),%esi
 	pushl %esi
-	call CleanMe::CleanMe(void)
+	call __7CleanMe
 	movl 4(%edi),%edx
 	movl 4(%edx),%eax
 	movl %eax,-16(%ebp)
@@ -281,15 +281,15 @@ g(void):
 	movl %esi,-8(%ebp)
 	leal -16(%ebp),%eax
 	movl %eax,4(%edx)
-.stabn 68,0,13,.LM10-g(void)
+.stabn 68,0,13,.LM10-g__Fv
 .LM10:
-	call h(void)
-.stabn 68,0,14,.LM11-g(void)
+	call h__Fv
+.stabn 68,0,14,.LM11-g__Fv
 .LM11:
 	addl $-12,%esp
 	leal -17(%ebp),%ebx
 	pushl %ebx
-	call CleanMe::CleanMe(void)
+	call __7CleanMe
 	movl 4(%edi),%edx
 	movl 4(%edx),%eax
 	movl %eax,-32(%ebp)
@@ -297,10 +297,10 @@ g(void):
 	movl %ebx,-24(%ebp)
 	leal -32(%ebp),%eax
 	movl %eax,4(%edx)
-.stabn 68,0,15,.LM12-g(void)
+.stabn 68,0,15,.LM12-g__Fv
 .LM12:
 	addl $32,%esp
-	call h(void)
+	call h__Fv
 	movl 4(%edi),%edx
 	movl 4(%edx),%eax
 	movl (%eax),%eax
@@ -308,7 +308,7 @@ g(void):
 	addl $-8,%esp
 	pushl $2
 	pushl %ebx
-	call CleanMe::~CleanMe(void)
+	call _$_7CleanMe
 	addl $16,%esp
 	movl 4(%edi),%edx
 	movl 4(%edx),%eax
@@ -317,7 +317,7 @@ g(void):
 	addl $-8,%esp
 	pushl $2
 	pushl %esi
-	call CleanMe::~CleanMe(void)
+	call _$_7CleanMe
 	leal -56(%ebp),%esp
 	popl %ebx
 	popl %esi
@@ -326,23 +326,23 @@ g(void):
 	ret
 .LBE9:
 .Lfe2:
-		.size		 g(void),.Lfe2-g(void)
+		.size		 g__Fv,.Lfe2-g__Fv
 .stabs "here:(10,1)",128,0,12,-1
 .stabs "there:(10,1)",128,0,14,-17
-.stabn 192,0,0,.LBB9-g(void)
-.stabn 224,0,0,.LBE9-g(void)
+.stabn 192,0,0,.LBB9-g__Fv
+.stabn 224,0,0,.LBE9-g__Fv
 .Lscope1:
-.stabs "",36,0,0,.Lscope1-g(void)
+.stabs "",36,0,0,.Lscope1-g__Fv
 	.section	.rodata
 .LC0:
 	.byte	 0x63,0x61,0x75,0x67,0x68,0x74,0x20,0x65,0x78,0x63
 	.byte	 0x65,0x70,0x74,0x69,0x6f,0x6e,0xa,0x0
 .text
 	.p2align 2,0x90
-.stabs "f(void):F(0,1)",36,0,18,f(void)
-.globl f(void)
-		.type		 f(void),@function
-f(void):
+.stabs "f__Fv:F(0,1)",36,0,18,f__Fv
+.globl f__Fv
+		.type		 f__Fv,@function
+f__Fv:
 .LBB10:
 	pushl %ebp
 	movl %esp,%ebp
@@ -350,11 +350,11 @@ f(void):
 	pushl %edi
 	pushl %esi
 	pushl %ebx
-.stabn 68,0,18,.LM13-f(void)
+.stabn 68,0,18,.LM13-f__Fv
 .LM13:
 	call __get_eh_context
 	movl %eax,-76(%ebp)
-.stabn 68,0,19,.LM14-f(void)
+.stabn 68,0,19,.LM14-f__Fv
 .LM14:
 	movl 4(%eax),%eax
 	movl %eax,-24(%ebp)
@@ -366,19 +366,19 @@ f(void):
 	leal -24(%ebp),%edx
 	movl -76(%ebp),%eax
 	movl %edx,4(%eax)
-.stabn 68,0,20,.LM15-f(void)
+.stabn 68,0,20,.LM15-f__Fv
 .LM15:
-	call g(void)
+	call g__Fv
 	movl -76(%ebp),%edx
 	movl 4(%edx),%eax
 	movl (%eax),%eax
 	movl %eax,4(%edx)
-.stabn 68,0,26,.LM16-f(void)
+.stabn 68,0,26,.LM16-f__Fv
 .LM16:
 	xorl %eax,%eax
 	jmp .L505
 .LBE10:
-.stabn 68,0,22,.LM17-f(void)
+.stabn 68,0,22,.LM17-f__Fv
 .LM17:
 .LBB11:
 .LBB12:
@@ -401,13 +401,13 @@ f(void):
 	movl %esp,8(%eax)
 	leal -48(%ebp),%eax
 	movl %eax,4(%edx)
-.stabn 68,0,23,.LM18-f(void)
+.stabn 68,0,23,.LM18-f__Fv
 .LM18:
 	addl $-8,%esp
 	pushl $.LC0
 	pushl $clog
-	call ostream::operator<<(char const *)
-.stabn 68,0,24,.LM19-f(void)
+	call __ls__7ostreamPCc
+.stabn 68,0,24,.LM19-f__Fv
 .LM19:
 .LBB15:
 	movl -76(%ebp),%edx
@@ -465,22 +465,22 @@ f(void):
 	leave
 	ret
 .Lfe3:
-		.size		 f(void),.Lfe3-f(void)
-.stabn 192,0,0,.LBB10-f(void)
-.stabn 192,0,0,.LBB11-f(void)
+		.size		 f__Fv,.Lfe3-f__Fv
+.stabn 192,0,0,.LBB10-f__Fv
+.stabn 192,0,0,.LBB11-f__Fv
 .stabs "__exception_info:(0,24)=*(0,25)=xscp_eh_info:",128,0,22,-80
-.stabn 192,0,0,.LBB12-f(void)
-.stabn 192,0,0,.LBB13-f(void)
-.stabn 192,0,0,.LBB14-f(void)
-.stabn 192,0,0,.LBB15-f(void)
-.stabn 224,0,0,.LBE15-f(void)
-.stabn 224,0,0,.LBE14-f(void)
-.stabn 224,0,0,.LBE13-f(void)
-.stabn 224,0,0,.LBE12-f(void)
-.stabn 224,0,0,.LBE11-f(void)
-.stabn 224,0,0,.LBE10-f(void)
+.stabn 192,0,0,.LBB12-f__Fv
+.stabn 192,0,0,.LBB13-f__Fv
+.stabn 192,0,0,.LBB14-f__Fv
+.stabn 192,0,0,.LBB15-f__Fv
+.stabn 224,0,0,.LBE15-f__Fv
+.stabn 224,0,0,.LBE14-f__Fv
+.stabn 224,0,0,.LBE13-f__Fv
+.stabn 224,0,0,.LBE12-f__Fv
+.stabn 224,0,0,.LBE11-f__Fv
+.stabn 224,0,0,.LBE10-f__Fv
 .Lscope2:
-.stabs "",36,0,0,.Lscope2-f(void)
+.stabs "",36,0,0,.Lscope2-f__Fv
 	.p2align 2,0x90
 .stabs "main:F(0,1)",36,0,29,main
 .globl main
@@ -492,7 +492,7 @@ main:
 	subl $8,%esp
 .stabn 68,0,29,.LM20-main
 .LM20:
-	call f(void)
+	call f__Fv
 	leave
 	ret
 .LBE16:
@@ -502,32 +502,32 @@ main:
 .stabn 224,0,0,.LBE16-main
 .Lscope3:
 .stabs "",36,0,0,.Lscope3-main
-.section	.exception::gnu.linkonce.t.(exception const &),"ax",@progbits
+.section	.gnu.linkonce.t.__9exceptionRC9exception,"ax",@progbits
 	.p2align 2
-.stabs "exception::exception(exception const &):F(0,26)=*(0,27)=xsexception:",36,0,18,exception::exception(exception const &)
+.stabs "__9exceptionRC9exception:F(0,26)=*(0,27)=xsexception:",36,0,18,__9exceptionRC9exception
 .stabs "this:p(0,26)",160,0,18,8
 .stabs "_ctor_arg:p(0,28)=&(0,27)",160,0,18,12
-	.globl	exception::exception(exception const &)
-	.weak	exception::exception(exception const &)
-		.type		 exception::exception(exception const &),@function
-exception::exception(exception const &):
+	.globl	__9exceptionRC9exception
+	.weak	__9exceptionRC9exception
+		.type		 __9exceptionRC9exception,@function
+__9exceptionRC9exception:
 	pushl %ebp
 	movl %esp,%ebp
-.stabn 68,0,8,.LM21-exception::exception(exception const &)
+.stabn 68,0,8,.LM21-__9exceptionRC9exception
 .LM21:
 	movl 8(%ebp),%eax
 .stabs "/usr/include/g++/exception",132,0,0,.Ltext5
 .Ltext5:
-.stabn 68,0,18,.LM22-exception::exception(exception const &)
+.stabn 68,0,18,.LM22-__9exceptionRC9exception
 .LM22:
 	movl $_vt$9exception,(%eax)
 	leave
 	ret
 .Lfe5:
-		.size		 exception::exception(exception const &),.Lfe5-exception::exception(exception const &)
+		.size		 __9exceptionRC9exception,.Lfe5-__9exceptionRC9exception
 .stabs "this:r(0,26)",64,0,18,0
 .Lscope4:
-.stabs "",36,0,0,.Lscope4-exception::exception(exception const &)
+.stabs "",36,0,0,.Lscope4-__9exceptionRC9exception
 	.text
 	.stabs "",100,0,0,.Letext
 .Letext:

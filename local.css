@@ -5,19 +5,33 @@
 
 
 .reveal pre code {
-    max-height: 40em;
-    /* font-size: 90%;*/
+    max-height: 36em;
+    font-size:18pt;
     line-height: 1.2em;
 }
 
+pre.codeblock * {
+}
 
 pre.codeblock {
-   font-size:50%;
+   font-size:15pt;
+   font-family: "DejaVu Sans Mono";
    background-color:#1f1f1f;
    overflow-y:auto;
-   max-height:45em;
+   max-height:44em;
    color:#dcdcdc;
 }
+
+pre.codeblock-small {
+   font-size:12pt;
+   font-family: "DejaVu Sans Mono";
+   background-color:#1f1f1f;
+   overflow-y:auto;
+   max-height:59em;
+   color:#dcdcdc;
+}
+
+
 
 code {
     color: #00a0a0;
@@ -67,7 +81,7 @@ div.machine-stack {
     border-color: #909090;
     border-width: 8px;
     border-top-width: 0px;
-    font-size: 28px;
+    font-size: 22pt;
 }
 
 td.stackframe {

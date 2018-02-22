@@ -1,5 +1,4 @@
-#include "sjlj.h"
-#include "raii-c.h"
+#include "foo-c.h"
 void g(int depth);
 void h(int depth) {
     if (random() % 50 == 0)
